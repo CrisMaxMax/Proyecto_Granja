@@ -1,0 +1,80 @@
+﻿@page "/Empleado"
+@using Data
+@using Interfaces
+@inject IEmpleadosServices EmpleadosServicio
+
+
+<h1>Registro Empleado</h1>
+
+<EditForm Model="@empleado" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <div class="row content">
+        <div class="col-md-1"><label for="Nombre">Nombre</label></div>
+        <div class="col-md-2"><InputText id="name" @bind-Value="empleado.nombre" /></div>
+        <div class="col-md-4"><ValidationMessage For="@(() => empleado.nombre)" /> </div>
+    </div>
+
+    <div class="row content">
+        <div class="col-md-1"><label for="Apellidos">Apellidos</label></div>
+        <div class="col-md-2"><InputText id="apellidos" @bind-Value="empleado.apellido" /></div>
+        <div class="col-md-4"><ValidationMessage For="@(() => empleado.apellido)" /> </div>
+    </div>
+
+    <div class="row content">
+        <div class="col-md-1"><label for="Email">Email</label></div>
+        <div class="col-md-2"><InputText id="EmailAddress" @bind-Value="empleado.email" /></div>
+        <div class="col-md-4"><ValidationMessage For="@(() => empleado.email)" /> </div>
+    </div>
+
+    <div class="row content">
+        <div class="col-md-1"><label for="Telefono">Telefono</label></div>
+        <div class="col-md-2"><InputText id="PhoneNumer" @bind-Value="empleado.telefono" /></div>
+        <div class="col-md-4"><ValidationMessage For="@(() => empleado.telefono)" /> </div>
+    </div>
+
+    <div class="row content">
+        <div class="col-md-1"><label for="Direccion">Direccion</label></div>
+        <div class="col-md-2"><InputText id="apellidos" @bind-Value="empleado.direccion" /></div>
+        <div class="col-md-4"><ValidationMessage For="@(() => empleado.direccion)" /> </div>
+    </div>
+
+    <div class="row content">
+        <div class="col-md-1"><label for="Tipo empleado">Tipo de Empleado</label></div>
+        <div class="col-md-2"><InputText id="tipo_empleado" @bind-Value="empleado.tipo_empleado" /></div>
+        <div class="col-md-4"><ValidationMessage For="@(() => empleado.tipo_empleado)" /> </div>
+    </div>
+
+    .<div class="row content">
+    <div class="col-md-1">   <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Guardar" /></div>
+    <div class="col-md-2">
+        <input type="button" value="Cancelar" class="btn btn-danger" @onclick="Cancelar" />
+    </div>
+
+</div>
+
+</EditForm>
+
+@code {
+    
+
+    Empleado empleado = new Empleado();
+
+    protected async Task Guardar()
+    {
+        await EmpleadosServicio.GuardarEmpleado(empleado);
+        
+    }
+
+    protected void Cancelar()
+    {
+       
+    }
+
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+
+}

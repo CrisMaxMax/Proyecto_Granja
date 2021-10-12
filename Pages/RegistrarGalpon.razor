@@ -1,0 +1,48 @@
+﻿@page "/RegistrarGalpon"
+@using Data
+@using Interfaces
+@inject IGalponServices GalponesServicio
+
+<h1>Registro Galpón</h1>
+
+<EditForm Model= "@galpon">
+    <table class="table">
+        <tr>
+            <td> latitud </td>
+            <td><InputNumber @bind-Value="galpon.latitud" ></InputNumber></td>
+        </tr>
+        <tr>
+            <td> altitud </td>
+            <td><InputNumber @bind-Value="galpon.altitud"></InputNumber></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="submit" class="btn btn-primary" value="Guardar" @onclick="Guardar" />
+                <input type="button" value="Cancelar" class="btn btn-danger" @onclick="Cancelar" />            
+            </td>
+        </tr>
+
+    </table>
+
+</EditForm>
+
+
+
+@code {
+
+    Galpon galpon = new Galpon();
+
+    protected async Task Guardar()
+    {
+        await GalponesServicio.GuardarGalpon(galpon);
+
+    }
+
+    protected void Cancelar()
+    {
+
+    }
+
+
+}

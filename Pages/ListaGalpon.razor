@@ -1,0 +1,52 @@
+﻿@page "/ListaGalpon"
+@using Data
+@using Interfaces
+@inject IGalponServices GalponesServicio
+
+<h1>Lista de Galpones</h1>
+
+@if (galpones == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+          <thead>
+               <tr>
+                    <th>Altitud</th>
+                    <th>Latitud</th>
+               </tr>
+          </thead>
+          <tbody>
+                @foreach (Galpon c in galpones)
+                {
+                    <tr>
+                        <td>@c.altitud</td>
+                        <td>@c.latitud</td>
+                    </tr>
+                }
+                    </tbody>
+                </table>
+}
+
+
+
+
+
+
+@code {
+    private IEnumerable<Galpon> galpones;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            galpones = await GalponesServicio.DameTodosLosGalpones();
+        }
+        catch
+        {
+            throw;
+        }
+    }
+}

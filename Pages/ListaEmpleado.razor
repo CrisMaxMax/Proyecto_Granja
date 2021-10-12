@@ -1,0 +1,61 @@
+﻿@page "/ListaEmpleado"
+@using Data
+@using Interfaces
+@inject IEmpleadosServices EmpleadosServicio
+
+
+
+<h1>Lista de Empleados</h1>
+
+
+@if (empleados == null)
+{
+    <p><em>Cargando...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Dirección</th>
+                <th>Telefono</th>
+                <th>Tipo de empleado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Empleado c in empleados)
+            {
+                <tr>
+                    <td>@c.nombre</td>
+                    <td>@c.apellido</td>
+                    <td>@c.email</td>
+                    <td>@c.direccion</td>
+                    <td>@c.telefono</td>
+                    <td>@c.tipo_empleado</td>
+                </tr>
+             }
+        </tbody>
+    </table>
+
+}
+
+
+@code {
+
+    private IEnumerable<Empleado> empleados;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            empleados = await EmpleadosServicio.DameTodosLosEmpleados();
+        }
+        catch
+        {
+            throw;
+        }
+    }
+}
